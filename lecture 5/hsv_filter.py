@@ -5,7 +5,7 @@ cv2.namedWindow("mask")
 
 def nothing(x):
     pass
-
+# [2,28,109] [26,90, 252]
 cv2.createTrackbar("lh", "mask", 90, 255, nothing)
 cv2.createTrackbar("ls", "mask", 185, 255, nothing)
 cv2.createTrackbar("lv", "mask", 98, 255, nothing)
@@ -13,7 +13,7 @@ cv2.createTrackbar("hh", "mask", 138, 255, nothing)
 cv2.createTrackbar("hs", "mask", 253, 255, nothing)
 cv2.createTrackbar("hv", "mask", 255, 255, nothing)
 
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(2)
 
 while (True):
     success, frame = cam.read()
@@ -77,7 +77,7 @@ while (True):
     
     key = cv2.waitKey(280) & 0xFF
     
-    if (key == ord('q')):
+    if (key == ord(' ')):
         break
 
 cam.release()
