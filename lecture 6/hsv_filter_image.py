@@ -5,19 +5,24 @@ cv2.namedWindow("mask")
 
 def nothing(x):
     pass
-# [2,28,109] [26,90, 252]
-cv2.createTrackbar("lh", "mask", 90, 255, nothing)
-cv2.createTrackbar("ls", "mask", 185, 255, nothing)
-cv2.createTrackbar("lv", "mask", 98, 255, nothing)
-cv2.createTrackbar("hh", "mask", 138, 255, nothing)
-cv2.createTrackbar("hs", "mask", 253, 255, nothing)
-cv2.createTrackbar("hv", "mask", 255, 255, nothing)
+low_hsv = (9, 181, 34)
+high_hsv = (18, 253, 189)
 
-cam = cv2.VideoCapture(1)
+lh, ls, lv = low_hsv
+hh, hs, hv = high_hsv
+
+cv2.createTrackbar("lh", "mask", lh, 255, nothing)
+cv2.createTrackbar("ls", "mask", ls, 255, nothing)
+cv2.createTrackbar("lv", "mask", lv, 255, nothing)
+cv2.createTrackbar("hh", "mask", hh, 255, nothing)
+cv2.createTrackbar("hs", "mask", hs, 255, nothing)
+cv2.createTrackbar("hv", "mask", hv, 255, nothing)
+
+# cam = cv2.VideoCapture(1)
 
 while (True):
-    success, frame = cam.read()
-    
+    # success, frame = cam.read()
+    frame = cv2.imread('ball.png')
     #frame[100 : 550, 100 : 550, 0] = 240
     #frame[:, :, 2] += 50
     
@@ -35,7 +40,7 @@ while (True):
     hv = cv2.getTrackbarPos("hv", "mask")
     
     mask = cv2.inRange(hsv, (lh, ls, lv), (hh, hs, hv))
-    
+    print((lh, ls, lv), (hh, hs, hv))
     cv2.imshow("mask", mask)
     
     connectivity = 4
@@ -61,7 +66,7 @@ while (True):
         
         #print(a)
         
-        if (a >= 500 and a < 5500):
+        if (a >= 500):
             filtered[np.where(labels == i)] = 255
             #print(a)
             
@@ -80,6 +85,6 @@ while (True):
     if (key == ord(' ')):
         break
 
-cam.release()
+# cam.release()
 cv2.destroyAllWindows()
 cv2.waitKey(10)
