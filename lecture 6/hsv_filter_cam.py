@@ -6,7 +6,7 @@ cv2.namedWindow("mask")
 def nothing(x):
     pass
 
-low_hsv = (5, 119, 12)
+low_hsv =  (5, 119, 12)
 high_hsv =  (29, 253, 255)
 
 lh, ls, lv = low_hsv

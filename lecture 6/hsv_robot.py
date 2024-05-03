@@ -9,8 +9,8 @@ def nothing(x):
     pass
 # [2,28,109] [26,90, 252]
 
-low_hsv = (9, 181, 34)
-high_hsv = (18, 253, 189)
+low_hsv =  (5, 119, 12)
+high_hsv =  (29, 253, 255)
 cam = cv2.VideoCapture(1)
 
 while (True):
