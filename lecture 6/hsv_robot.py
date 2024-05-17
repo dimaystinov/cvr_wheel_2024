@@ -11,7 +11,7 @@ def nothing(x):
 
 low_hsv =  (5, 119, 12)
 high_hsv =  (29, 253, 255)
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
 
 while (True):
     success, frame = cam.read()
