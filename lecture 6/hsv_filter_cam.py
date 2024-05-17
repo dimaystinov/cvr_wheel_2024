@@ -18,6 +18,7 @@ cv2.createTrackbar("lv", "mask", lv, 255, nothing)
 cv2.createTrackbar("hh", "mask", hh, 255, nothing)
 cv2.createTrackbar("hs", "mask", hs, 255, nothing)
 cv2.createTrackbar("hv", "mask", hv, 255, nothing)
+
 calibration_distance = 50 # см
 calibration_linear_size = 51 # pixel
 cam = cv2.VideoCapture(0)
