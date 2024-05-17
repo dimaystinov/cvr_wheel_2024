@@ -1,13 +1,13 @@
 import numpy as np
 import cv2
-
+import math
 cv2.namedWindow("mask")
 
 def nothing(x):
     pass
 
-low_hsv =  (5, 119, 12)
-high_hsv =  (29, 253, 255)
+low_hsv =  (1, 127, 152)
+high_hsv =  (191, 182, 223)
 
 lh, ls, lv = low_hsv
 hh, hs, hv = high_hsv
@@ -18,8 +18,9 @@ cv2.createTrackbar("lv", "mask", lv, 255, nothing)
 cv2.createTrackbar("hh", "mask", hh, 255, nothing)
 cv2.createTrackbar("hs", "mask", hs, 255, nothing)
 cv2.createTrackbar("hv", "mask", hv, 255, nothing)
-
-cam = cv2.VideoCapture(1)
+calibration_distance = 50 # см
+calibration_linear_size = 51 # pixel
+cam = cv2.VideoCapture(0)
 
 while (True):
     success, frame = cam.read()
@@ -71,6 +72,11 @@ while (True):
         if (a >= 500):
             filtered[np.where(labels == i)] = 255
             #print(a)
+            linear_size = math.sqrt(a)
+
+            distance_by_cam = round(calibration_distance * calibration_linear_size / linear_size)
+            cv2.putText(frame, f"dist={distance_by_cam}", (l + w + 10, t + h + 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, f"lsize={int(linear_size)}", (l - 60, t + h + 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
             
             cv2.putText(frame, str(a), (l, t), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
             cv2.rectangle(frame, (l, t), (l + w, t + h), (0, 255, 0), 2)

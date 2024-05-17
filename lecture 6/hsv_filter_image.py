@@ -1,12 +1,12 @@
 import numpy as np
 import cv2
-
+import math
 cv2.namedWindow("mask")
 
 def nothing(x):
     pass
-low_hsv = (9, 181, 34)
-high_hsv = (18, 253, 189)
+low_hsv = (1, 82, 172)
+high_hsv = (217, 157, 218)
 
 lh, ls, lv = low_hsv
 hh, hs, hv = high_hsv
@@ -18,11 +18,13 @@ cv2.createTrackbar("hh", "mask", hh, 255, nothing)
 cv2.createTrackbar("hs", "mask", hs, 255, nothing)
 cv2.createTrackbar("hv", "mask", hv, 255, nothing)
 
+calibration_distance = 100 # см
+calibration_linear_size = 61 # pixel
 # cam = cv2.VideoCapture(1)
-
+# hsv  (1, 82, 172) (217, 157, 218)
 while (True):
     # success, frame = cam.read()
-    frame = cv2.imread('ball.png')
+    frame = cv2.imread('1.jpg')
     #frame[100 : 550, 100 : 550, 0] = 240
     #frame[:, :, 2] += 50
     
@@ -66,10 +68,13 @@ while (True):
         
         #print(a)
         
-        if (a >= 500):
+        if (a >= 1000):
             filtered[np.where(labels == i)] = 255
             #print(a)
-            
+            linear_size = math.sqrt(a)
+
+            distance_by_cam = round(calibration_distance * calibration_linear_size / linear_size)
+            cv2.putText(frame, str(distance_by_cam), (l + w + 10, t + h + 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
             cv2.putText(frame, str(a), (l, t), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
             cv2.rectangle(frame, (l, t), (l + w, t + h), (0, 255, 0), 2)
         
