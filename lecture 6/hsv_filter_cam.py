@@ -24,7 +24,8 @@ cam = cv2.VideoCapture(0)
 
 while (True):
     success, frame = cam.read()
-    
+    original_frame = frame
+    cv2.imwrite("ball_unknown_distance_2.jpg",original_frame)
     #frame[100 : 550, 100 : 550, 0] = 240
     #frame[:, :, 2] += 50
     
@@ -85,6 +86,7 @@ while (True):
     #break
     
     cv2.imshow("frame", frame)
+
     #cv2.imshow("hsv", hsv[:, :, 0])
     cv2.imshow("filtered", filtered)
     
