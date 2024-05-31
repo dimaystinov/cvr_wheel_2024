@@ -1,6 +1,6 @@
 import math
 
-def img_to_local_coord(x_px, l):
+def img_to_local_coord(x_px, l): # [l] = см
     Wpx = 640
     Hpx = 480
     H = 0 # см

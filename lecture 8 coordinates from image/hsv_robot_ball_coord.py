@@ -20,6 +20,19 @@ print(frame.shape)
 calibration_distance = 65 # см
 calibration_linear_size = 46 # pixel
 
+def img_to_local_coord(x_px, l): # [l] = см
+    Wpx = 640
+    Hpx = 480
+    H = 26 # см
+    cam_angle_x = 74 # в градусах, угол бетта. При подстановке а тангенс перевести в радианы
+
+    y = math.sqrt(l ** 2 - H ** 2)
+
+    print(y)
+
+    x = y * 2 * (x_px - Wpx / 2)  * math.tan(math.radians(cam_angle_x) / 2) / Wpx
+    return [round(x), round(y)] # в сантиметрах
+
 while (True):
     success, frame = cam.read()
     if success == False:
@@ -73,7 +86,8 @@ while (True):
 
             cv2.putText(frame, str(a), (l, t), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
             cv2.rectangle(frame, (l, t), (l + w, t + h), (0, 255, 0), 2)
-
+            x_b, y_b = img_to_local_coord(l + w / 2, distance_by_cam)
+            cv2.putText(frame, f"{x_b}, {y_b}", (30, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
     #print("=====================")
     #break
 
