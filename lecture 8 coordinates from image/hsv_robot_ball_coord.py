@@ -17,13 +17,13 @@ cam = cv2.VideoCapture(0)
 success, frame = cam.read()
 print(frame.shape)
 
-calibration_distance = 65 # см
-calibration_linear_size = 46 # pixel
+calibration_distance = 50 # см
+calibration_linear_size = 77 # pixel
 
 def img_to_local_coord(x_px, l): # [l] = см
     Wpx = 640
     Hpx = 480
-    H = 5 # высота камеры в см
+    H = 10.5 # высота камеры в см
     cam_angle_x = 74 # в градусах, угол бетта. При подстановке а тангенс перевести в радианы
 
     try:
