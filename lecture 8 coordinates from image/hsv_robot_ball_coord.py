@@ -11,8 +11,8 @@ def nothing(x):
 # [2,28,109] [26,90, 252]
 
 
-low_hsv =  (1, 127, 152)
-high_hsv =  (191, 182, 223)
+low_hsv =  (5, 121, 0)
+high_hsv =  (74, 255, 255)
 cam = cv2.VideoCapture(0)
 success, frame = cam.read()
 print(frame.shape)
@@ -23,10 +23,14 @@ calibration_linear_size = 46 # pixel
 def img_to_local_coord(x_px, l): # [l] = см
     Wpx = 640
     Hpx = 480
-    H = 26 # см
+    H = 5 # высота камеры в см
     cam_angle_x = 74 # в градусах, угол бетта. При подстановке а тангенс перевести в радианы
 
-    y = math.sqrt(l ** 2 - H ** 2)
+    try:
+        y = math.sqrt(l ** 2 - H ** 2)
+    except Exception as e:
+        print(e)
+
 
     print(y)
 
@@ -76,7 +80,7 @@ while (True):
         if (a >= 500):
             filtered[np.where(labels == i)] = 255
             #print(a)
-            linear_size = math.sqrt(a)
+            linear_size = max(w, h)
 
             distance_by_cam = round(calibration_distance * calibration_linear_size / linear_size)
             cv2.putText(frame, f"dist={distance_by_cam}", (l + w + 10, t + h + 10), cv2.FONT_HERSHEY_SIMPLEX, 1,

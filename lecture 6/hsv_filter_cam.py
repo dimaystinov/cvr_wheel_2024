@@ -6,8 +6,8 @@ cv2.namedWindow("mask")
 def nothing(x):
     pass
 
-low_hsv =  (1, 127, 152)
-high_hsv =  (191, 182, 223)
+low_hsv =  (0, 145, 90)
+high_hsv =  (184, 212, 232)
 
 lh, ls, lv = low_hsv
 hh, hs, hv = high_hsv
@@ -77,8 +77,8 @@ while (True):
             linear_size = math.sqrt(a)
 
             distance_by_cam = round(calibration_distance * calibration_linear_size / linear_size)
-            cv2.putText(frame, f"dist={distance_by_cam}", (l + w + 10, t + h + 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
-            cv2.putText(frame, f"lsize={int(linear_size)}", (l - 60, t + h + 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
+            # cv2.putText(frame, f"dist={distance_by_cam}", (l + w + 10, t + h + 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
+            # cv2.putText(frame, f"lsize={int(linear_size)}", (l - 60, t + h + 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
             
             cv2.putText(frame, str(a), (l, t), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
             cv2.rectangle(frame, (l, t), (l + w, t + h), (0, 255, 0), 2)
